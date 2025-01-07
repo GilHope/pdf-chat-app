@@ -11,3 +11,6 @@ pinecone.Pinecone(
 vector_store = Pinecone.from_existing_index(
     os.getenv('PINECONE_INDEX_NAME'), embeddings
 )
+
+
+print("PINECONE_API_KEY: ", os.getenv('PINECONE'))
