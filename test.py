@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-chat = ChatOpenAI()
+chat = ChatOpenAI(streaming=True)
 
 prompt = ChatPromptTemplate.from_messages([
     ("human", "{content}")
