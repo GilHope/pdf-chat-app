@@ -17,3 +17,11 @@ def build_chat(chat_args: ChatArgs):
         chain = build_chat(chat_args)
     """
     retriever = build_retriever(chat_args)
+    llm = build_llm(chat_args)
+    memory = build_memory(chat_args)
+
+    return ConversationalRetrievalChain.from_llm(
+        llm=llm,
+        memory=memory,
+        retriever=retriever,
+    )
