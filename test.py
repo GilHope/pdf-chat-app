@@ -12,5 +12,5 @@ prompt = ChatPromptTemplate.from_messages([
 
 messages = prompt.format_messages(content="tell me a joke")
 
-output = chat(messages)
+output = chat.__call__(messages)
 print(output)
