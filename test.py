@@ -19,12 +19,13 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", "{content}")
 ])
 
-chain = LLMChain(llm=chat, prompt=prompt)
+class StreamingChain(LLMChain):
+    def stream(self, input):
+        print(self(input))
+        yield 'hi'
+        yield 'there'
 
-for output in chain.stream(input={"content":"tell me a joke" }):
+chain = StreamingChain(llm=chat, prompt=prompt)
+
+for output in chain.stream(input={"content": "tell me a joke"}):
     print(output)
-
-# messages = prompt.format_messages(content="tell me a joke")
-
-# for message in chat.stream(messages):
-#     print(message.content)
