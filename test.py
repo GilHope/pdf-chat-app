@@ -24,6 +24,7 @@ prompt = ChatPromptTemplate.from_messages([
 
 class StreamingChain(LLMChain):
     def stream(self, input):
+        self(input)
         while True:
             token = queue.get()
             yield token
