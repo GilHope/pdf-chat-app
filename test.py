@@ -4,6 +4,7 @@ from langchain.chains import LLMChain
 from langchain.callbacks.base import BaseCallbackHandler
 from dotenv import load_dotenv
 from queue import Queue
+from threading import Thread
 
 load_dotenv()
 
@@ -24,7 +25,11 @@ prompt = ChatPromptTemplate.from_messages([
 
 class StreamingChain(LLMChain):
     def stream(self, input):
-        self(input)
+        def task():
+            self(input)
+
+        Thread(target=task).start()
+
         while True:
             token = queue.get()
             yield token
