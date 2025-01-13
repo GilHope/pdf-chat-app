@@ -3,12 +3,15 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 from langchain.callbacks.base import BaseCallbackHandler
 from dotenv import load_dotenv
+from queue import Queue
 
 load_dotenv()
 
+queue = Queue()
+
 class StreamingHandler(BaseCallbackHandler):
     def on_llm_new_token(self, token, **kwargs):
-        pass  
+        queue.put(token)
 
 chat = ChatOpenAI(
     streaming=True,
