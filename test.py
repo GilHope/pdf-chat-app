@@ -17,6 +17,9 @@ class StreamingHandler(BaseCallbackHandler):
     def on_llm_end(self, response, **kwargs):
         queue.put(None)
 
+    def on_llm_error(self, error, **kwargs):
+        queue.put(None)
+
 chat = ChatOpenAI(
     streaming=True,
     callbacks=[StreamingHandler()]
