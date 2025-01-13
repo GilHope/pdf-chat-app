@@ -14,6 +14,9 @@ class StreamingHandler(BaseCallbackHandler):
     def on_llm_new_token(self, token, **kwargs):
         queue.put(token)
 
+    def on_llm_end(self, response, **kwargs):
+        queue.put(None)
+
 chat = ChatOpenAI(
     streaming=True,
     callbacks=[StreamingHandler()]
@@ -32,6 +35,8 @@ class StreamingChain(LLMChain):
 
         while True:
             token = queue.get()
+            if token is None:
+                break
             yield token
 
 chain = StreamingChain(llm=chat, prompt=prompt)
