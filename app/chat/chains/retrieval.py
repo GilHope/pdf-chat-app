@@ -6,4 +6,3 @@ class StreamingConversationalRetrievalChain(
     ConversationalRetrievalChain
 ):
     pass
-)
