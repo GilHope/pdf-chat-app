@@ -10,7 +10,7 @@ from app.web.api import (
     get_conversation_components
 )
 
-def select_compnent(
+def select_component(
     component_type, component_map, chat_args
 ):
     components = get_conversation_components(
@@ -19,7 +19,7 @@ def select_compnent(
     previous_component = components[component_type]
 
     if previous_component:
-        builder = component_map(previous_component)
+        builder = component_map[previous_component]
         return previous_component, builder(chat_args)
     else:
         random_name = random.choice(list(component_map.keys()))
@@ -41,6 +41,9 @@ def build_chat(chat_args: ChatArgs):
         "memory",
         memory_map,
         chat_args
+    )
+    print(
+        f"Running chain with: memory: {memory_name}, llm: {llm_name}, retriever: {retriever_name}"
     )
     set_conversation_components(
         chat_args.conversation_id,
