@@ -2,6 +2,8 @@ from app.chat.redis import client
 
 def random_component_by_score(component_type, component_map):
     # Make sure component_type is 'llm', 'retriever', or 'memory'
+    if component_type not in ["llm", "retriever", "memory"]:
+        raise ValueError(f"Invalid component type")
 
     # From redis, get the hash containing the sum total scores for the given component_type
 
