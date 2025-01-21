@@ -1,7 +1,18 @@
 from app.chat.redis import client
 
 def random_component_by_score(component_type, component_map):
-    pass
+    # Make sure component_type is 'llm', 'retriever', or 'memory'
+
+    # From redis, get the hash containing the sum total scores for the given component_type
+
+    # From redis, get the hash containing the number of times each component has been voted on
+
+    # Get all the valid component names from the component map
+
+    # Loop over those valid names and use them to calculate the average score for each
+    # Add average score to a dictionary
+
+    # Do a weighted random selection
 
 def score_conversation(
     conversation_id: str, score: float, llm: str, retriever: str, memory: str
