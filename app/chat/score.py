@@ -53,7 +53,7 @@ def get_scores():
         values = client.hgetall(f"{component_type}_score_values")
         counts = client.hgetall(f"{component_type}_score_counts")
 
-        names = values.keys
+        names = values.keys()
 
         for name in names:
             score = int(values.get(name,1))
