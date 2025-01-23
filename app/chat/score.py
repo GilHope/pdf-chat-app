@@ -47,18 +47,18 @@ def score_conversation(
     client.hincrby("memory_score_counts", llm, 1)
 
 def get_scores():
-    """
+    aggregate = {"llm": {}, "retriever": {}, "memory": {}}
 
-    Example:
+    for component_type in aggregate.keys():
+        values = client.hgetall(f"{component_type}_score_values")
+        counts = client.hgetall(f"{component_type}_score_counts")
 
-        {
-            'llm': {
-                'chatopenai-3.5-turbo': [avg_score],
-                'chatopenai-4': [avg_score]
-            },
-            'retriever': { 'pinecone_store': [avg_score] },
-            'memory': { 'persist_memory': [avg_score] }
-        }
-    """
+        names = values.keys
 
-    pass
+        for name in names:
+            score = int(values.get(name,1))
+            count = int(counts.get(name,1))
+            avg = score / count
+            aggregate[component_type][name] = [avg]
+
+    return aggregate
