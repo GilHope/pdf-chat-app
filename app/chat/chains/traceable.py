@@ -5,11 +5,11 @@ class TraceableChain:
     def __call__(self, *args, **kwargs):
         trace = langfuse.trace(
             CreateTrace(
-                id=self.metadata.["conversation_id"],
+                id=self.metadata["conversation_id"],
                 metadata=chat_args.metadata
             )
         )
-        
+
         callbacks = kwargs.get("callbacks", [])
         callbacks.append(trace.getNewCallback())
         kwargs["callbacks"] = callbacks
